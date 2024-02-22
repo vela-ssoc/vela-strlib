@@ -6,6 +6,7 @@
 - strlib.utf8
 - strlib.similarity
 - strlib.ac
+- strlib.gen
 
 ## 用法样例
 
@@ -59,4 +60,24 @@
     local hamm = strlib.similarity("a" , "b").hamming
     local jaro = strlib.similarity("a" , "b").jaro
     -- 类似调用 
+```
+
+## 字符泛化
+支持字符串泛化 结合 相似度匹配 
+```lua
+    local strlib = vela.strlib
+    local gen = strlib.gen
+    local emc = vela.attach("员工.txt")
+
+    local new_str = gen("1.explorer.exe>1022.chrome.exe>1023.chrome.exe")
+                    .num()                   -- 替换数据为N
+                    .graphic(true)           -- 只保留可见字符  , false 取反
+                    .space()                 -- 替换空格
+                    .file(emc.file , "D")    -- 存在字典内容 替换为D
+                    .ip("IP")                -- 替换IP地址为 IP
+                    .regex("vela" , "x")     -- 正则替换
+                    .gen()                   -- 换成结果
+    
+
+    print(new_str)
 ```
